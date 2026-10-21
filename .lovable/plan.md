@@ -44,7 +44,7 @@ The Driving School project plan is the product authority. The Cashing plan adds 
 - Mentor payment requests: DRAFT → PENDING → APPROVED | REJECTED (main spec).
 - Cash transactions, student account entries, debts, and settlements, including settlement methods (Cashing).
 
-These must be tied together in the Money Rules before the backend phase. Open questions from the previous plan still apply, especially transit vs debt, remaining balance on gross vs net, the salary-deduction accounting effect, and the apostrophe style.
+These must be tied together in the Money Rules before the backend phase. Open questions from the previous plan still apply, especially transit vs debt, remaining balance on gross vs net, the exact amounts and timing of the salary deduction (its direction is fixed by rule 6), and the apostrophe style.
 
 ## 4. Product acceptance criteria (cover the whole frontend phase)
 1. No monthly tuition billing, recurring charges, automatic monthly invoices, or monthly scheduler anywhere: no screens, types, or services.
@@ -52,7 +52,8 @@ These must be tied together in the Money Rules before the backend phase. Open qu
 3. Settlement supports full and partial amounts. An amount that is empty, ≤ 0, or above the outstanding balance is rejected with an Uzbek error.
 4. Settling a student-linked debt is one operation (`settleDebt`). Its result updates the debt, credits the linked student account (`debt_settlement_credit`), and adds a "Qarz yopildi" history entry. No second manual payment is needed.
 5. An `organization_budget` settlement creates no cash-income transaction.
-6. `personal_repayment` and `salary_deduction` remain separate methods in the types, the UI, and the mock results. Salary deduction creates no invented cash movement or organization debt, and is marked "rule pending confirmation".
+6. `salary_deduction` is a separate settlement method from `personal_repayment` in the types, the UI, and the mock results. **Corrected rule:** "A salary deduction keeps the related debt the mentor owes the organization in place. Where the original debt is student-related, it credits the linked student account. It is never treated as a personal cash repayment or as new cash income." In the frontend phase this rule appears only in the domain types and mock examples: an example mentor debt that stays open after a salary deduction, plus a linked `debt_settlement_credit` entry for the student, with no cash transaction. No real accounting calculation or financial write is built until the full Money Rules are approved.
+7. `personal_repayment` is recorded as a cash repayment from the mentor and is never merged with `salary_deduction`.
 7. Reports and filters use `effectiveDate`. `createdAt` is shown separately in details. A backdated entry does not appear in today's report.
 8. The under-30% warning appears only when all of these hold: the contract is valid, the group start date is known, the start date is today or earlier, and the paid amount is below 30% of the contract. No warning for an unknown or future start.
 9. Mentor mock services return only that mentor's own students and transactions and their personal debt. Never other mentors' data, organization or transit debts, or school-wide totals.
