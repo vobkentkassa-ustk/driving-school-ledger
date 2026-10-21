@@ -8,3 +8,11 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+## Project rules (Avtomaktab Kassa)
+- Routing is TanStack Router file routes in `src/routes`; never add React Router or migrate frameworks — the template's architecture is fixed.
+- Every user-facing string lives in `src/i18n/uz.ts` (Uzbek only) — so copy can be corrected in one place.
+- Screens read data through typed async services (`src/mocks/services.ts` now, a real adapter later), never import mock arrays — so the backend can be swapped without touching screens.
+- No authoritative money calculations or financial writes in the client; display server-supplied values — financial integrity belongs to the backend.
+- Money and dates are formatted only via `src/lib/format.ts` — one consistent format.
+- Colors come only from tokens in `src/styles.css` — keeps light/dark theming consistent.
