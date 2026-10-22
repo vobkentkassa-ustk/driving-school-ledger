@@ -1,9 +1,11 @@
 /**
  * Shared display formatters. Display only — never use these for money math.
- * Money: integer so'm, e.g. 12 450 000 so'm. Dates: DD.MM.YYYY, times HH:mm (Asia/Tashkent).
+ * Money: integer soʻm, e.g. 12 450 000 soʻm. Dates: DD.MM.YYYY, times HH:mm (Asia/Tashkent).
  */
 
-export const CURRENCY_SUFFIX = "so'm";
+import { uz } from "@/i18n/uz";
+
+export const CURRENCY_SUFFIX = uz.currency.suffix;
 const TZ = "Asia/Tashkent";
 
 export function formatNumber(value: number): string {

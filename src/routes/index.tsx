@@ -9,10 +9,10 @@ import { listDebts, listGroups, listSettlements } from "@/mocks/services";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Dizayn asoslari — Avtomaktab Kassa" },
-      { name: "description", content: "Avtomaktab Kassa dizayn tizimi: ranglar, holatlar va formatlash namunalari." },
-      { property: "og:title", content: "Dizayn asoslari — Avtomaktab Kassa" },
-      { property: "og:description", content: "Avtomaktab Kassa dizayn tizimi: ranglar, holatlar va formatlash namunalari." },
+      { title: uz.metadata.foundationTitle },
+      { name: "description", content: uz.metadata.foundationDescription },
+      { property: "og:title", content: uz.metadata.foundationTitle },
+      { property: "og:description", content: uz.metadata.foundationDescription },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
