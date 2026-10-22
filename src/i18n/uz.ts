@@ -14,6 +14,43 @@ import type {
 /** All user-facing strings (Uzbek, Latin script). Apostrophe style pending final decision. */
 export const uz = {
   app: { name: "Avtomaktab Kassa", tagline: "Avtomaktab kassasi va qarzlar hisobi" },
+  currency: { suffix: "soʻm" },
+  metadata: {
+    foundationTitle: "Dizayn asoslari — Avtomaktab Kassa",
+    foundationDescription: "Avtomaktab Kassa dizayn tizimi: ranglar, holatlar va formatlash namunalari.",
+  },
+  fallback: {
+    notFoundCode: "404",
+    notFoundTitle: "Sahifa topilmadi",
+    notFoundDescription: "Siz izlayotgan sahifa mavjud emas yoki boshqa joyga ko'chirilgan.",
+    errorTitle: "Sahifa yuklanmadi",
+    errorDescription: "Xatolik yuz berdi. Qayta urinib ko'ring yoki bosh sahifaga qayting.",
+    home: "Bosh sahifaga qaytish",
+    retry: "Qayta urinish",
+  },
+  samples: {
+    names: {
+      jasur: "Jasur Karimov", dilshod: "Dilshod Rahimov", sardor: "Sardor Tursunov",
+      bekzod: "Bekzod Aliyev", aziza: "Aziza Yusupova", otabek: "Otabek Nazarov",
+      madina: "Madina Ergasheva", shohruh: "Shohruh Qodirov", nilufar: "Nilufar Xolmatova",
+      organization: "Avtomaktab",
+    },
+    groups: { g1: "B-toifa 12-guruh", g2: "B-toifa 13-guruh", g3: "BC-toifa 4-guruh", g4: "B-toifa 9-guruh" },
+    descriptions: {
+      receiptMismatch: "Summa kvitansiyaga mos emas",
+      examDelayed: "Imtihon to'lovi kechiktirildi",
+      fuelAdvance: "Yoqilg'i uchun avans",
+      examTransit: "YHXBga imtihon to'lovi tranziti",
+      heldPayment: "O'quvchi to'lovi mentorda qolgan",
+      salaryDebt: "Ish haqidan ushlab qolinadigan qarz",
+      cashPayment: "Naqd to'lov",
+      partialSettlement: "Qarz yopildi (qisman)",
+      settlement: "Qarz yopildi",
+      azizaPayment: "Aziza Yusupova to'lovi",
+      madinaBackdatedPayment: "Madina Ergasheva to'lovi (kechikib kiritildi)",
+      dailyIncome: "Kunlik kirim",
+    },
+  },
   nav: {
     dashboard: "Boshqaruv paneli",
     ledger: "Daftar",

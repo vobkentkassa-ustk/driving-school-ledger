@@ -2,12 +2,12 @@ import { describe, expect, it } from "vitest";
 import { formatDate, formatDateTime, formatMoney } from "./format";
 
 describe("formatMoney", () => {
-  it("separates thousands with spaces and adds so'm", () => {
-    expect(formatMoney(12450000)).toBe("12 450 000 so'm");
+  it("separates thousands with spaces and adds soʻm", () => {
+    expect(formatMoney(12450000)).toBe("12 450 000 soʻm");
   });
   it("handles small and zero amounts", () => {
-    expect(formatMoney(500)).toBe("500 so'm");
-    expect(formatMoney(0)).toBe("0 so'm");
+    expect(formatMoney(500)).toBe("500 soʻm");
+    expect(formatMoney(0)).toBe("0 soʻm");
   });
 });
 

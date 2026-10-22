@@ -1,5 +1,5 @@
 /**
- * Domain types (frontend phase). Money values are integer so'm.
+ * Domain types (frontend phase). Money values are integer soʻm.
  * effectiveDate = business date used by reports; createdAt = when the record was entered.
  * Intentionally absent: monthly billing / recurring charges / invoices, and any debt-forgiveness status.
  */
