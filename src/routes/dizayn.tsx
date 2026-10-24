@@ -6,7 +6,7 @@ import { uz } from "@/i18n/uz";
 import { formatDate, formatDateTime } from "@/lib/format";
 import { listDebts, listGroups, listSettlements } from "@/mocks/services";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/dizayn")({
   head: () => ({
     meta: [
       { title: uz.metadata.foundationTitle },
