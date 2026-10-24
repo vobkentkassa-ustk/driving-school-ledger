@@ -41,9 +41,14 @@ Production work (Money Rules, backend choice, database, Telegram login, bot, exp
 - Reference images: layout cues only; no English, dollars, or extra tabs.
 - New rules you care about (amount limits, scoping, 30% rule, effective date) get a small test.
 
+## 5. Approved clarifications
+- Keep TanStack Start/Router, React, Vite, TypeScript, Tailwind v4. No framework migration, no v0/Next.js code.
+- The five color meanings sit inside the full design system (spacing, typography, surfaces, borders, focus states, light/dark tokens), and that whole system stays as it is.
+- The role switcher and mentor data scoping are demonstration only. They are not real security.
+- GitHub stays deferred. Never call the project synced until the repository and branch are verified.
+- Nothing new without separate approval: no backend, database, real login, money writes, or dependencies.
+
 ## Technical details
-- Create `roadmap.md` at project root holding this phase list with checkboxes and a short status log (phase, files, tests/build, open issues, Git status).
-- Save the token meanings (section 2) to project memory as a design rule.
-- Shells: pathless layout routes `src/routes/_admin.tsx` and `src/routes/_mentor.tsx` rendering `<Outlet />`; mock role held in a small client context, labelled non-security.
-- Keep: TanStack Start/Router, Tailwind v4 tokens in `src/styles.css`, strings in `src/i18n/uz.ts`, formatting in `src/lib/format.ts`, data via `src/mocks/services.ts`. No new packages expected for Phase 2.
-- After approval of this plan, the only immediate changes are `roadmap.md` and memory; Phase 2 starts only when you say so.
+- Create `roadmap.md` at project root with this phase list as checkboxes, the clarifications, and a short status log (phase, files, tests/build, open issues, Git status: not verified).
+- Save the token meanings and the design-system rule to project memory.
+- Phase 2 does not start with this approval. I stop after saving and report files changed and any issues.
