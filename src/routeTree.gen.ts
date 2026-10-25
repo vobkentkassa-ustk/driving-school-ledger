@@ -9,38 +9,250 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as BloklanganRouteImport } from './routes/bloklangan'
 import { Route as DizaynRouteImport } from './routes/dizayn'
+import { Route as KutilmoqdaRouteImport } from './routes/kutilmoqda'
+import { Route as MentorRouteImport } from './routes/mentor'
+import { Route as RuxsatYoqRouteImport } from './routes/ruxsat-yoq'
+import { Route as SeansTugadiRouteImport } from './routes/seans-tugadi'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminDaftarRouteImport } from './routes/admin.daftar'
+import { Route as AdminFoydalanuvchilarRouteImport } from './routes/admin.foydalanuvchilar'
+import { Route as AdminGuruhlarRouteImport } from './routes/admin.guruhlar'
+import { Route as AdminOquvchilarRouteImport } from './routes/admin.oquvchilar'
+import { Route as AdminQarzlarRouteImport } from './routes/admin.qarzlar'
+import { Route as AdminSorovlarRouteImport } from './routes/admin.sorovlar'
+import { Route as MentorIndexRouteImport } from './routes/mentor.index'
+import { Route as MentorOquvchilarRouteImport } from './routes/mentor.oquvchilar'
+import { Route as MentorQarzlarRouteImport } from './routes/mentor.qarzlar'
 
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BloklanganRoute = BloklanganRouteImport.update({
+  id: '/bloklangan',
+  path: '/bloklangan',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DizaynRoute = DizaynRouteImport.update({
   id: '/dizayn',
   path: '/dizayn',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KutilmoqdaRoute = KutilmoqdaRouteImport.update({
+  id: '/kutilmoqda',
+  path: '/kutilmoqda',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MentorRoute = MentorRouteImport.update({
+  id: '/mentor',
+  path: '/mentor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RuxsatYoqRoute = RuxsatYoqRouteImport.update({
+  id: '/ruxsat-yoq',
+  path: '/ruxsat-yoq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SeansTugadiRoute = SeansTugadiRouteImport.update({
+  id: '/seans-tugadi',
+  path: '/seans-tugadi',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminDaftarRoute = AdminDaftarRouteImport.update({
+  id: '/daftar',
+  path: '/daftar',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminFoydalanuvchilarRoute = AdminFoydalanuvchilarRouteImport.update({
+  id: '/foydalanuvchilar',
+  path: '/foydalanuvchilar',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminGuruhlarRoute = AdminGuruhlarRouteImport.update({
+  id: '/guruhlar',
+  path: '/guruhlar',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminOquvchilarRoute = AdminOquvchilarRouteImport.update({
+  id: '/oquvchilar',
+  path: '/oquvchilar',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminQarzlarRoute = AdminQarzlarRouteImport.update({
+  id: '/qarzlar',
+  path: '/qarzlar',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSorovlarRoute = AdminSorovlarRouteImport.update({
+  id: '/sorovlar',
+  path: '/sorovlar',
+  getParentRoute: () => AdminRoute,
+} as any)
+const MentorIndexRoute = MentorIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => MentorRoute,
+} as any)
+const MentorOquvchilarRoute = MentorOquvchilarRouteImport.update({
+  id: '/oquvchilar',
+  path: '/oquvchilar',
+  getParentRoute: () => MentorRoute,
+} as any)
+const MentorQarzlarRoute = MentorQarzlarRouteImport.update({
+  id: '/qarzlar',
+  path: '/qarzlar',
+  getParentRoute: () => MentorRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
+  '/admin': typeof AdminRouteWithChildren
+  '/bloklangan': typeof BloklanganRoute
   '/dizayn': typeof DizaynRoute
+  '/kutilmoqda': typeof KutilmoqdaRoute
+  '/mentor': typeof MentorRouteWithChildren
+  '/ruxsat-yoq': typeof RuxsatYoqRoute
+  '/seans-tugadi': typeof SeansTugadiRoute
+  '/admin/daftar': typeof AdminDaftarRoute
+  '/admin/foydalanuvchilar': typeof AdminFoydalanuvchilarRoute
+  '/admin/guruhlar': typeof AdminGuruhlarRoute
+  '/admin/oquvchilar': typeof AdminOquvchilarRoute
+  '/admin/qarzlar': typeof AdminQarzlarRoute
+  '/admin/sorovlar': typeof AdminSorovlarRoute
+  '/mentor/oquvchilar': typeof MentorOquvchilarRoute
+  '/mentor/qarzlar': typeof MentorQarzlarRoute
+  '/admin/': typeof AdminIndexRoute
+  '/mentor/': typeof MentorIndexRoute
 }
 export interface FileRoutesByTo {
+  '/bloklangan': typeof BloklanganRoute
   '/dizayn': typeof DizaynRoute
+  '/kutilmoqda': typeof KutilmoqdaRoute
+  '/ruxsat-yoq': typeof RuxsatYoqRoute
+  '/seans-tugadi': typeof SeansTugadiRoute
+  '/admin/daftar': typeof AdminDaftarRoute
+  '/admin/foydalanuvchilar': typeof AdminFoydalanuvchilarRoute
+  '/admin/guruhlar': typeof AdminGuruhlarRoute
+  '/admin/oquvchilar': typeof AdminOquvchilarRoute
+  '/admin/qarzlar': typeof AdminQarzlarRoute
+  '/admin/sorovlar': typeof AdminSorovlarRoute
+  '/mentor/oquvchilar': typeof MentorOquvchilarRoute
+  '/mentor/qarzlar': typeof MentorQarzlarRoute
+  '/admin': typeof AdminIndexRoute
+  '/mentor': typeof MentorIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/admin': typeof AdminRouteWithChildren
+  '/bloklangan': typeof BloklanganRoute
   '/dizayn': typeof DizaynRoute
+  '/kutilmoqda': typeof KutilmoqdaRoute
+  '/mentor': typeof MentorRouteWithChildren
+  '/ruxsat-yoq': typeof RuxsatYoqRoute
+  '/seans-tugadi': typeof SeansTugadiRoute
+  '/admin/daftar': typeof AdminDaftarRoute
+  '/admin/foydalanuvchilar': typeof AdminFoydalanuvchilarRoute
+  '/admin/guruhlar': typeof AdminGuruhlarRoute
+  '/admin/oquvchilar': typeof AdminOquvchilarRoute
+  '/admin/qarzlar': typeof AdminQarzlarRoute
+  '/admin/sorovlar': typeof AdminSorovlarRoute
+  '/mentor/oquvchilar': typeof MentorOquvchilarRoute
+  '/mentor/qarzlar': typeof MentorQarzlarRoute
+  '/admin/': typeof AdminIndexRoute
+  '/mentor/': typeof MentorIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/dizayn'
+  fullPaths:
+    | '/admin'
+    | '/bloklangan'
+    | '/dizayn'
+    | '/kutilmoqda'
+    | '/mentor'
+    | '/ruxsat-yoq'
+    | '/seans-tugadi'
+    | '/admin/daftar'
+    | '/admin/foydalanuvchilar'
+    | '/admin/guruhlar'
+    | '/admin/oquvchilar'
+    | '/admin/qarzlar'
+    | '/admin/sorovlar'
+    | '/mentor/oquvchilar'
+    | '/mentor/qarzlar'
+    | '/admin/'
+    | '/mentor/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/dizayn'
-  id: '__root__' | '/dizayn'
+  to:
+    | '/bloklangan'
+    | '/dizayn'
+    | '/kutilmoqda'
+    | '/ruxsat-yoq'
+    | '/seans-tugadi'
+    | '/admin/daftar'
+    | '/admin/foydalanuvchilar'
+    | '/admin/guruhlar'
+    | '/admin/oquvchilar'
+    | '/admin/qarzlar'
+    | '/admin/sorovlar'
+    | '/mentor/oquvchilar'
+    | '/mentor/qarzlar'
+    | '/admin'
+    | '/mentor'
+  id:
+    | '__root__'
+    | '/admin'
+    | '/bloklangan'
+    | '/dizayn'
+    | '/kutilmoqda'
+    | '/mentor'
+    | '/ruxsat-yoq'
+    | '/seans-tugadi'
+    | '/admin/daftar'
+    | '/admin/foydalanuvchilar'
+    | '/admin/guruhlar'
+    | '/admin/oquvchilar'
+    | '/admin/qarzlar'
+    | '/admin/sorovlar'
+    | '/mentor/oquvchilar'
+    | '/mentor/qarzlar'
+    | '/admin/'
+    | '/mentor/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  AdminRoute: typeof AdminRouteWithChildren
+  BloklanganRoute: typeof BloklanganRoute
   DizaynRoute: typeof DizaynRoute
+  KutilmoqdaRoute: typeof KutilmoqdaRoute
+  MentorRoute: typeof MentorRouteWithChildren
+  RuxsatYoqRoute: typeof RuxsatYoqRoute
+  SeansTugadiRoute: typeof SeansTugadiRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bloklangan': {
+      id: '/bloklangan'
+      path: '/bloklangan'
+      fullPath: '/bloklangan'
+      preLoaderRoute: typeof BloklanganRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dizayn': {
       id: '/dizayn'
       path: '/dizayn'
@@ -48,11 +260,152 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DizaynRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/kutilmoqda': {
+      id: '/kutilmoqda'
+      path: '/kutilmoqda'
+      fullPath: '/kutilmoqda'
+      preLoaderRoute: typeof KutilmoqdaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mentor': {
+      id: '/mentor'
+      path: '/mentor'
+      fullPath: '/mentor'
+      preLoaderRoute: typeof MentorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ruxsat-yoq': {
+      id: '/ruxsat-yoq'
+      path: '/ruxsat-yoq'
+      fullPath: '/ruxsat-yoq'
+      preLoaderRoute: typeof RuxsatYoqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seans-tugadi': {
+      id: '/seans-tugadi'
+      path: '/seans-tugadi'
+      fullPath: '/seans-tugadi'
+      preLoaderRoute: typeof SeansTugadiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/daftar': {
+      id: '/admin/daftar'
+      path: '/daftar'
+      fullPath: '/admin/daftar'
+      preLoaderRoute: typeof AdminDaftarRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/foydalanuvchilar': {
+      id: '/admin/foydalanuvchilar'
+      path: '/foydalanuvchilar'
+      fullPath: '/admin/foydalanuvchilar'
+      preLoaderRoute: typeof AdminFoydalanuvchilarRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/guruhlar': {
+      id: '/admin/guruhlar'
+      path: '/guruhlar'
+      fullPath: '/admin/guruhlar'
+      preLoaderRoute: typeof AdminGuruhlarRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/oquvchilar': {
+      id: '/admin/oquvchilar'
+      path: '/oquvchilar'
+      fullPath: '/admin/oquvchilar'
+      preLoaderRoute: typeof AdminOquvchilarRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/qarzlar': {
+      id: '/admin/qarzlar'
+      path: '/qarzlar'
+      fullPath: '/admin/qarzlar'
+      preLoaderRoute: typeof AdminQarzlarRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/sorovlar': {
+      id: '/admin/sorovlar'
+      path: '/sorovlar'
+      fullPath: '/admin/sorovlar'
+      preLoaderRoute: typeof AdminSorovlarRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/mentor/': {
+      id: '/mentor/'
+      path: '/'
+      fullPath: '/mentor/'
+      preLoaderRoute: typeof MentorIndexRouteImport
+      parentRoute: typeof MentorRoute
+    }
+    '/mentor/oquvchilar': {
+      id: '/mentor/oquvchilar'
+      path: '/oquvchilar'
+      fullPath: '/mentor/oquvchilar'
+      preLoaderRoute: typeof MentorOquvchilarRouteImport
+      parentRoute: typeof MentorRoute
+    }
+    '/mentor/qarzlar': {
+      id: '/mentor/qarzlar'
+      path: '/qarzlar'
+      fullPath: '/mentor/qarzlar'
+      preLoaderRoute: typeof MentorQarzlarRouteImport
+      parentRoute: typeof MentorRoute
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminDaftarRoute: typeof AdminDaftarRoute
+  AdminFoydalanuvchilarRoute: typeof AdminFoydalanuvchilarRoute
+  AdminGuruhlarRoute: typeof AdminGuruhlarRoute
+  AdminOquvchilarRoute: typeof AdminOquvchilarRoute
+  AdminQarzlarRoute: typeof AdminQarzlarRoute
+  AdminSorovlarRoute: typeof AdminSorovlarRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminDaftarRoute: AdminDaftarRoute,
+  AdminFoydalanuvchilarRoute: AdminFoydalanuvchilarRoute,
+  AdminGuruhlarRoute: AdminGuruhlarRoute,
+  AdminOquvchilarRoute: AdminOquvchilarRoute,
+  AdminQarzlarRoute: AdminQarzlarRoute,
+  AdminSorovlarRoute: AdminSorovlarRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
+interface MentorRouteChildren {
+  MentorOquvchilarRoute: typeof MentorOquvchilarRoute
+  MentorQarzlarRoute: typeof MentorQarzlarRoute
+  MentorIndexRoute: typeof MentorIndexRoute
+}
+
+const MentorRouteChildren: MentorRouteChildren = {
+  MentorOquvchilarRoute: MentorOquvchilarRoute,
+  MentorQarzlarRoute: MentorQarzlarRoute,
+  MentorIndexRoute: MentorIndexRoute,
+}
+
+const MentorRouteWithChildren =
+  MentorRoute._addFileChildren(MentorRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
+  AdminRoute: AdminRouteWithChildren,
+  BloklanganRoute: BloklanganRoute,
   DizaynRoute: DizaynRoute,
+  KutilmoqdaRoute: KutilmoqdaRoute,
+  MentorRoute: MentorRouteWithChildren,
+  RuxsatYoqRoute: RuxsatYoqRoute,
+  SeansTugadiRoute: SeansTugadiRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
