@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as BloklanganRouteImport } from './routes/bloklangan'
 import { Route as DizaynRouteImport } from './routes/dizayn'
@@ -27,6 +28,11 @@ import { Route as MentorIndexRouteImport } from './routes/mentor.index'
 import { Route as MentorOquvchilarRouteImport } from './routes/mentor.oquvchilar'
 import { Route as MentorQarzlarRouteImport } from './routes/mentor.qarzlar'
 
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -114,6 +120,7 @@ const MentorQarzlarRoute = MentorQarzlarRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/bloklangan': typeof BloklanganRoute
   '/dizayn': typeof DizaynRoute
@@ -133,6 +140,7 @@ export interface FileRoutesByFullPath {
   '/mentor/': typeof MentorIndexRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof IndexRoute
   '/bloklangan': typeof BloklanganRoute
   '/dizayn': typeof DizaynRoute
   '/kutilmoqda': typeof KutilmoqdaRoute
@@ -151,6 +159,7 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/bloklangan': typeof BloklanganRoute
   '/dizayn': typeof DizaynRoute
@@ -172,6 +181,7 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/'
     | '/admin'
     | '/bloklangan'
     | '/dizayn'
@@ -191,6 +201,7 @@ export interface FileRouteTypes {
     | '/mentor/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/'
     | '/bloklangan'
     | '/dizayn'
     | '/kutilmoqda'
@@ -208,6 +219,7 @@ export interface FileRouteTypes {
     | '/mentor'
   id:
     | '__root__'
+    | '/'
     | '/admin'
     | '/bloklangan'
     | '/dizayn'
@@ -228,6 +240,7 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
   BloklanganRoute: typeof BloklanganRoute
   DizaynRoute: typeof DizaynRoute
@@ -239,6 +252,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin': {
       id: '/admin'
       path: '/admin'
@@ -399,6 +419,7 @@ const MentorRouteWithChildren =
   MentorRoute._addFileChildren(MentorRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
   BloklanganRoute: BloklanganRoute,
   DizaynRoute: DizaynRoute,
