@@ -16,3 +16,5 @@
 - No authoritative money calculations or financial writes in the client; display server-supplied values — financial integrity belongs to the backend.
 - Money and dates are formatted only via `src/lib/format.ts` — one consistent format.
 - Colors come only from tokens in `src/styles.css` — keeps light/dark theming consistent.
+- Workspaces are layout routes `/admin` and `/mentor` (src/components/shell); the role switcher is navigation only and grants nothing — real access control belongs to the backend.
+- Per-page metadata uses `pageHead()` from `src/lib/head.ts` — consistent titles.
