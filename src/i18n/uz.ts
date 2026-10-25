@@ -160,7 +160,7 @@ export const uz = {
     title: "Ish joyini tanlang",
     subtitle: "Sinov rejimi: haqiqiy kirish hali ulanmagan. Rolni tanlab, sahifalarni ko'rib chiqing.",
     adminDescription: "Kassa, qarzlar, guruhlar va so'rovlar boshqaruvi (kompyuter uchun).",
-    mentorDescription: "Toʻlov qoralamalari, oʻquvchilar va shaxsiy qarzlar (telefon uchun).",
+    mentorDescription: "To'lov qoralamalari, o'quvchilar va shaxsiy qarzlar (telefon uchun).",
     open: "Ochish",
     statusPages: "Holat sahifalari",
     metaDescription: "Avtomaktab Kassa: administrator va mentor ish joylariga kirish (sinov rejimi).",
