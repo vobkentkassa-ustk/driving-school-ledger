@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { ArrowDownLeft, ArrowUpRight, ArrowRight, CalendarDays, CircleDollarSign, Clock3, HandCoins, Repeat2, UsersRound, Wallet } from "lucide-react";
+import { ArrowDownLeft, ArrowUpRight, ArrowRight, CalendarDays, Clock3, HandCoins, Repeat2, UsersRound, Wallet } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Money } from "@/components/shared/Money";
 import { StatusBadge } from "@/components/shared/StatusBadge";
