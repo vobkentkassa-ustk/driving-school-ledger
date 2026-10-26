@@ -1,6 +1,7 @@
 /** Mock data for visual verification only. Not persisted, not authoritative. Use via ./services. */
 import { uz } from "@/i18n/uz";
 import type {
+  AdminDashboard,
   CashTransaction,
   DebtSettlement,
   DebtViewModel,
@@ -110,3 +111,19 @@ export const cashTransactions: CashTransaction[] = [
   { id: "c3", type: "cash_out", description: uz.samples.descriptions.fuelAdvance, cashIn: 0, cashOut: 500_000, effectiveDate: "2026-10-05", createdAt: "2026-10-05T12:00:00Z", relatedDebtId: "d2", mentorId: "m1", createdBy: "u1" },
   { id: "c4", type: "cash_in", description: uz.samples.descriptions.dailyIncome, cashIn: 2_300_000, cashOut: 0, effectiveDate: "2026-10-21", createdAt: "2026-10-21T13:00:00Z", createdBy: "u1" },
 ];
+
+/** Literal demonstration snapshot, not an accounting engine. Opening balance includes September's cash entry.
+ * Internal settlements (1 100 000 soʻm) are deliberately excluded from cash totals.
+ * Outstanding debt includes the preserved salary-deduction debt d5 (700 000 soʻm).
+ */
+export const dashboardSnapshot: Pick<AdminDashboard, "period" | "summary"> = {
+  period: { from: "2026-10-01", to: "2026-10-26" },
+  summary: {
+    cashIn: 3_300_000,
+    cashOut: 500_000,
+    openingBalance: 1_500_000,
+    cashBalance: 4_300_000,
+    outstandingDebt: 5_000_000,
+    pendingCount: 1,
+  },
+};

@@ -162,3 +162,21 @@ export interface DateRange {
   from?: ISODate;
   to?: ISODate;
 }
+
+/** Display-only dashboard DTO. Monetary totals are supplied by the adapter, never calculated by screens. */
+export interface AdminDashboard {
+  period: { from: ISODate; to: ISODate };
+  summary: {
+    cashIn: number;
+    cashOut: number;
+    openingBalance: number;
+    cashBalance: number;
+    outstandingDebt: number;
+    pendingCount: number;
+  };
+  recentOperations: Array<
+    | { kind: "cash"; transaction: CashTransaction }
+    | { kind: "internal"; settlement: DebtSettlement; description: string }
+  >;
+  groups: Array<{ group: Group; mentorName: string; studentCount: number }>;
+}

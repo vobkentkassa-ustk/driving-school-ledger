@@ -3,6 +3,7 @@
  * Swap for a real API adapter later with the same signatures. No financial writes here.
  */
 import type {
+  AdminDashboard,
   CashTransaction,
   DateRange,
   DebtSettlement,
@@ -20,6 +21,32 @@ const delay = <T,>(value: T, ms = 120): Promise<T> =>
 
 const inRange = (date: string, range?: DateRange) =>
   (!range?.from || date >= range.from) && (!range?.to || date <= range.to);
+
+/** Admin demonstration snapshot only. Financial totals are literal adapter-supplied fixtures. */
+export function getAdminDashboard(): Promise<AdminDashboard> {
+  const { period, summary } = db.dashboardSnapshot;
+  const recentOperations: AdminDashboard["recentOperations"] = [
+    ...db.cashTransactions.filter((t) => inRange(t.effectiveDate, period)).map((transaction) => ({ kind: "cash" as const, transaction })),
+    ...db.settlements.filter((s) => inRange(s.effectiveDate, period)).map((settlement) => ({
+      kind: "internal" as const,
+      settlement,
+      description: db.debts.find((d) => d.id === settlement.debtId)?.reason ?? "",
+    })),
+  ];
+  recentOperations.sort((a, b) => {
+    const dateA = a.kind === "cash" ? a.transaction.effectiveDate : a.settlement.effectiveDate;
+    const dateB = b.kind === "cash" ? b.transaction.effectiveDate : b.settlement.effectiveDate;
+    return dateB.localeCompare(dateA);
+  });
+  return delay({
+    period, summary, recentOperations: recentOperations.slice(0, 6),
+    groups: db.groups.map((group) => ({
+      group,
+      mentorName: db.mentors.find((m) => m.id === group.mentorId)?.fullName ?? "",
+      studentCount: db.students.filter((s) => s.groupId === group.id).length,
+    })),
+  });
+}
 
 export function listGroups(scope: ViewerScope): Promise<Group[]> {
   return delay(scope.role === "admin" ? db.groups : db.groups.filter((g) => g.mentorId === scope.mentorId));
