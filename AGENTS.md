@@ -19,3 +19,4 @@
 - Workspaces are layout routes `/admin` and `/mentor` (src/components/shell); the role switcher is navigation only and grants nothing — real access control belongs to the backend.
 - Per-page metadata uses `pageHead()` from `src/lib/head.ts` — consistent titles.
 - Dashboard reads use a shared Query option primed by the route loader; its adapter supplies literal mock monetary totals and separate cash/internal DTOs so screens never calculate financial summaries.
+- Cash ledger filters live in validated URL search parameters and its async adapter returns enriched cash-only rows; the entry form previews an unsaved example without posting or mutating the ledger.

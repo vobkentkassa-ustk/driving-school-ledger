@@ -12,8 +12,8 @@ Approved 24.10.2026. Each phase ends with: files changed, tests, build, desktop 
 ## Phases
 - [x] 1. Foundation
 - [x] 2. App shells and navigation
-- [x] 3. Admin dashboard (awaiting review)
-- [ ] 4. Kassa daftari (ledger)
+- [x] 3. Admin dashboard
+- [ ] 4. Kassa daftari (ledger; authorized 26.10.2026, in progress)
 - [ ] 5. Debts list and detail
 - [ ] 6. Settlement dialog (mock)
 - [ ] 7. Students and account history

@@ -5,6 +5,8 @@
 import type {
   AdminDashboard,
   CashTransaction,
+  CashLedgerFilters,
+  CashLedgerRow,
   DateRange,
   DebtSettlement,
   DebtViewModel,
@@ -15,6 +17,7 @@ import type {
   ViewerScope,
 } from "@/types/domain";
 import * as db from "./data";
+import { uz } from "@/i18n/uz";
 
 const delay = <T,>(value: T, ms = 120): Promise<T> =>
   new Promise((resolve) => setTimeout(() => resolve(structuredClone(value)), ms));
@@ -77,6 +80,23 @@ export function listSettlements(debtId: string): Promise<DebtSettlement[]> {
 /** Admin only. Filters by effectiveDate (reports), never createdAt. */
 export function listCashTransactions(range?: DateRange): Promise<CashTransaction[]> {
   return delay(db.cashTransactions.filter((t) => inRange(t.effectiveDate, range)));
+}
+
+/** Cash-only ledger. Non-cash settlements never become cash transactions. */
+export function listCashLedger(filters: CashLedgerFilters): Promise<CashLedgerRow[]> {
+  const query = filters.q.trim().toLocaleLowerCase("uz");
+  const rows: CashLedgerRow[] = db.cashTransactions.map((transaction) => ({
+    transaction,
+    studentName: db.students.find((s) => s.id === transaction.relatedStudentId)?.fullName ?? null,
+    mentorName: db.mentors.find((m) => m.id === transaction.mentorId)?.fullName ?? null,
+    createdByName: db.users.find((u) => u.id === transaction.createdBy)?.fullName ?? transaction.createdBy,
+  }));
+  return delay(rows.filter((row) => {
+    const { transaction: t } = row;
+    return inRange(t.effectiveDate, filters)
+      && (filters.type === "all" || t.type === filters.type)
+      && (!query || [t.id, t.description, row.studentName, row.mentorName, uz.ledgerType[t.type]].join(" ").toLocaleLowerCase("uz").includes(query));
+  }).sort((a, b) => b.transaction.effectiveDate.localeCompare(a.transaction.effectiveDate) || b.transaction.createdAt.localeCompare(a.transaction.createdAt)));
 }
 
 export function listMentorTransactions(mentorId: string, range?: DateRange): Promise<CashTransaction[]> {
