@@ -163,6 +163,22 @@ export interface DateRange {
   to?: ISODate;
 }
 
+export type CashLedgerFilterType = "all" | "cash_in" | "cash_out" | "student_payment" | "mentor_repayment" | "adjustment" | "reversal";
+
+export interface CashLedgerFilters {
+  q: string;
+  from: string;
+  to: string;
+  type: CashLedgerFilterType;
+}
+
+export interface CashLedgerRow {
+  transaction: CashTransaction;
+  studentName: string | null;
+  mentorName: string | null;
+  createdByName: string;
+}
+
 /** Display-only dashboard DTO. Monetary totals are supplied by the adapter, never calculated by screens. */
 export interface AdminDashboard {
   period: { from: ISODate; to: ISODate };
