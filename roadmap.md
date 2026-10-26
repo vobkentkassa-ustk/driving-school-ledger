@@ -12,7 +12,7 @@ Approved 24.10.2026. Each phase ends with: files changed, tests, build, desktop 
 ## Phases
 - [x] 1. Foundation
 - [x] 2. App shells and navigation
-- [ ] 3. Admin dashboard (authorized 26.10.2026; in progress)
+- [x] 3. Admin dashboard (awaiting review)
 - [ ] 4. Kassa daftari (ledger)
 - [ ] 5. Debts list and detail
 - [ ] 6. Settlement dialog (mock)
@@ -29,3 +29,4 @@ Separate production track (each needs its own approval): Money Rules, backend ch
 ## Status log
 - 24.10.2026: Phase 1 accepted. 13 tests passing, build OK. Roadmap saved. Git: not verified (GitHub not linked). Open: apostrophe style, English text on the emergency server-error page, no dark-mode toggle, Money Rules questions.
 - 25.10.2026: Phase 2 built. Home page = role chooser; design preview moved to /dizayn. Admin shell (sidebar, phone menu) with 7 placeholder pages; mentor shell (bottom bar) with 3 placeholder pages; 4 status pages. Demo role switch is navigation only, no security. 28 tests passing, build OK. Git: not verified.
+- 26.10.2026: Phase 3 built; stopped for review. October 1–26 demonstration snapshot: cash in 3 300 000 soʻm, cash out 500 000 soʻm, opening balance 1 500 000 soʻm, closing balance 4 300 000 soʻm, outstanding debt 5 000 000 soʻm, 1 pending request. Internal settlements remain separate and excluded from cash totals. Files: dashboard page/query, admin index route, domain DTO, Uzbek labels, mock snapshot/services, dashboard tests, AGENTS.md and roadmap.md. 31 tests passed; automatic build OK. Browser: role chooser → dashboard → ledger/requests/groups; light/dark and 1440/1024/768/375 widths verified, no overflow or runtime errors. No backend, real auth, financial writes, dependencies or architecture changes. GitHub remains unverified; Phase 4 waits for approval.

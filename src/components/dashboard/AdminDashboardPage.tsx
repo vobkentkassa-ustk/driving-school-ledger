@@ -6,7 +6,7 @@ import { Money } from "@/components/shared/Money";
 import { StatusBadge } from "@/components/shared/StatusBadge";
 import { Button } from "@/components/ui/button";
 import { uz } from "@/i18n/uz";
-import { formatDate, formatDateTime, formatNumber } from "@/lib/format";
+import { formatDate, formatDateTime, formatMoney, formatNumber } from "@/lib/format";
 import type { AdminDashboard } from "@/types/domain";
 import { adminDashboardQuery } from "./query";
 
@@ -76,7 +76,7 @@ export function AdminDashboardPage() {
       <section aria-label={uz.dashboard.cashMovement} className="grid gap-4 md:grid-cols-3">
         <CashMetric label={uz.dashboard.cashIn} value={summary.cashIn} tone="positive" icon={ArrowDownLeft} note={periodLabel} />
         <CashMetric label={uz.dashboard.cashOut} value={summary.cashOut} tone="debt" icon={ArrowUpRight} note={periodLabel} />
-        <CashMetric label={uz.dashboard.balance} value={summary.cashBalance} tone={summary.cashBalance < 0 ? "debt" : "positive"} icon={Wallet} note={`${uz.dashboard.openingBalance}: ${formatNumber(summary.openingBalance)} ${uz.currency.suffix}`} />
+        <CashMetric label={uz.dashboard.balance} value={summary.cashBalance} tone={summary.cashBalance < 0 ? "debt" : "positive"} icon={Wallet} note={`${uz.dashboard.openingBalance}: ${formatMoney(summary.openingBalance)}`} />
       </section>
 
       <section className="grid gap-4 sm:grid-cols-2" aria-label={uz.dashboard.pendingNote}>
