@@ -15,7 +15,7 @@ export function LedgerDetails({ row, onClose }: { row: CashLedgerRow | null; onC
       <dl className="space-y-4 text-sm">{[
         [uz.ledger.recordId, t.id], [uz.fields.effectiveDate, formatDate(t.effectiveDate)], [uz.fields.createdAt, formatDateTime(t.createdAt)], [uz.ledger.createdBy, row.createdByName], [uz.fields.student, row.studentName ?? uz.ledger.noLink], [uz.fields.mentor, row.mentorName ?? uz.ledger.noLink],
       ].map(([label, value]) => <div key={label}><dt className="text-muted-foreground">{label}</dt><dd className="mt-1 break-words font-medium">{value}</dd></div>)}</dl>
-      {t.relatedDebtId && <div className="text-sm"><p className="text-muted-foreground">{uz.ledger.linkedDebt}</p><p className="mt-1 font-mono">{t.relatedDebtId}</p><Button asChild variant="link" className="px-0"><Link to="/admin/qarzlar">{uz.nav.debts}</Link></Button></div>}
+      {t.relatedDebtId && <div className="text-sm"><p className="text-muted-foreground">{uz.ledger.linkedDebt}</p><p className="mt-1 font-mono">{t.relatedDebtId}</p><Button asChild variant="link" className="px-0"><Link to="/admin/qarzlar" search={{ debt: t.relatedDebtId }}>{uz.nav.debts}</Link></Button></div>}
     </div>}
   </SheetContent></Sheet>;
 }
