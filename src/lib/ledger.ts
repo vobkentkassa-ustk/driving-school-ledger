@@ -1,5 +1,4 @@
 import type { CashLedgerFilters, CashLedgerFilterType } from "@/types/domain";
-import type { SearchSchemaInput } from "@tanstack/react-router";
 
 export const cashLedgerTypes: readonly CashLedgerFilterType[] = ["all", "cash_in", "cash_out", "student_payment", "mentor_repayment", "adjustment", "reversal"];
 
@@ -9,7 +8,7 @@ export function isCalendarDate(value: string): boolean {
   return Number.isFinite(date.getTime()) && date.toISOString().slice(0, 10) === value;
 }
 
-export function parseLedgerFilters(search: Record<string, unknown> & SearchSchemaInput): CashLedgerFilters {
+export function parseLedgerFilters(search: Record<string, unknown>): CashLedgerFilters {
   const type = cashLedgerTypes.find((type) => type === search['type']) ?? "all";
   return {
     q: typeof search['q'] === "string" ? search['q'].slice(0, 200) : "",

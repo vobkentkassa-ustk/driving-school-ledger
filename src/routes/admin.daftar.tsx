@@ -1,4 +1,4 @@
-import { createFileRoute, useRouter } from "@tanstack/react-router";
+import { createFileRoute, useRouter, type SearchSchemaInput } from "@tanstack/react-router";
 import { CashLedgerPage } from "@/components/ledger/CashLedgerPage";
 import { cashLedgerQuery } from "@/components/ledger/query";
 import { parseLedgerFilters } from "@/lib/ledger";
@@ -8,7 +8,7 @@ import { uz } from "@/i18n/uz";
 import { pageHead } from "@/lib/head";
 
 export const Route = createFileRoute("/admin/daftar")({
-  validateSearch: parseLedgerFilters,
+  validateSearch: (search: { q?: string; from?: string; to?: string; type?: string } & SearchSchemaInput) => parseLedgerFilters(search),
   loaderDeps: ({ search }) => search,
   loader: ({ context, deps }) => context.queryClient.ensureQueryData(cashLedgerQuery(deps)),
   head: () => pageHead(uz.ledger.title, uz.ledger.description),
