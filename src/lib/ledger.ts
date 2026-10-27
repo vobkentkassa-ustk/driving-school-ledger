@@ -9,11 +9,11 @@ export function isCalendarDate(value: string): boolean {
 }
 
 export function parseLedgerFilters(search: Record<string, unknown>): CashLedgerFilters {
-  const type = cashLedgerTypes.find((type) => type === search.type) ?? "all";
+  const type = cashLedgerTypes.find((type) => type === search['type']) ?? "all";
   return {
-    q: typeof search.q === "string" ? search.q.slice(0, 200) : "",
-    from: typeof search.from === "string" && isCalendarDate(search.from) ? search.from : "",
-    to: typeof search.to === "string" && isCalendarDate(search.to) ? search.to : "",
+    q: typeof search['q'] === "string" ? search['q'].slice(0, 200) : "",
+    from: typeof search['from'] === "string" && isCalendarDate(search['from']) ? search['from'] : "",
+    to: typeof search['to'] === "string" && isCalendarDate(search['to']) ? search['to'] : "",
     type,
   };
 }
