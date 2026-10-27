@@ -163,6 +163,27 @@ export interface DateRange {
   to?: ISODate;
 }
 
+export interface DebtFilters {
+  q: string;
+  category: "all" | DebtCategory;
+  status: "all" | DebtStatus;
+  debt: string;
+}
+
+/** Read-only detail; linked accounting effects are supplied by the adapter. */
+export interface DebtDetail {
+  debt: DebtViewModel;
+  createdByName: string;
+  mentorName: string | null;
+  history: Array<{
+    settlement: DebtSettlement;
+    createdByName: string;
+    studentCredit: StudentAccountEntry | null;
+    preservedDebt: DebtViewModel | null;
+  }>;
+  origin: { settlement: DebtSettlement; sourceDebt: DebtViewModel } | null;
+}
+
 export type CashLedgerFilterType = "all" | "cash_in" | "cash_out" | "student_payment" | "mentor_repayment" | "adjustment" | "reversal";
 
 export interface CashLedgerFilters {
