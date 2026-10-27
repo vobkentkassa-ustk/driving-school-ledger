@@ -8,6 +8,8 @@ import type {
   CashLedgerFilters,
   CashLedgerRow,
   DateRange,
+  DebtDetail,
+  DebtFilters,
   DebtSettlement,
   DebtViewModel,
   Group,
@@ -75,6 +77,38 @@ export function listDebts(scope: ViewerScope): Promise<DebtViewModel[]> {
 
 export function listSettlements(debtId: string): Promise<DebtSettlement[]> {
   return delay(db.settlements.filter((s) => s.debtId === debtId));
+}
+
+/** Demonstration scoping only; production access control belongs to the backend. */
+export async function listDebtRows(scope: ViewerScope, filters: DebtFilters): Promise<DebtViewModel[]> {
+  const rows = await listDebts(scope);
+  const q = filters.q.trim().toLocaleLowerCase("uz");
+  return rows.filter((d) => (filters.category === "all" || d.category === filters.category)
+    && (filters.status === "all" || d.status === filters.status)
+    && (!q || [d.id, d.debtorName, d.relatedStudentName, d.relatedGroupName, d.reason].join(" ").toLocaleLowerCase("uz").includes(q)))
+    .sort((a, b) => b.effectiveDate.localeCompare(a.effectiveDate) || b.createdAt.localeCompare(a.createdAt));
+}
+
+export async function getDebtDetail(scope: ViewerScope, debtId: string): Promise<DebtDetail | null> {
+  const accessible = await listDebts(scope);
+  const debt = accessible.find((d) => d.id === debtId);
+  if (!debt) return null;
+  const creatorName = (id: string) => db.users.find((u) => u.id === id)?.fullName ?? id;
+  const originSettlement = db.settlements.find((s) => s.id === debt.originSettlementId);
+  const sourceDebt = accessible.find((d) => d.id === originSettlement?.debtId);
+  return delay({
+    debt,
+    createdByName: creatorName(debt.createdBy),
+    mentorName: db.mentors.find((m) => m.id === debt.relatedMentorId)?.fullName ?? null,
+    history: db.settlements.filter((s) => s.debtId === debt.id)
+      .sort((a, b) => b.effectiveDate.localeCompare(a.effectiveDate) || b.createdAt.localeCompare(a.createdAt))
+      .map((settlement) => ({
+        settlement, createdByName: creatorName(settlement.createdBy),
+        studentCredit: db.studentAccountEntries.find((e) => e.id === settlement.effects.studentAccountEntryId) ?? null,
+        preservedDebt: accessible.find((d) => d.id === settlement.effects.preservedOrganizationDebtId) ?? null,
+      })),
+    origin: originSettlement && sourceDebt ? { settlement: originSettlement, sourceDebt } : null,
+  });
 }
 
 /** Admin only. Filters by effectiveDate (reports), never createdAt. */
