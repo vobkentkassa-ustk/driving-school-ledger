@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { getRouteApi } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { HandCoins, RotateCcw, Search } from "lucide-react";
@@ -18,18 +18,20 @@ import { debtCategories, debtStatuses, parseDebtFilters } from "@/lib/debts";
 import type { DebtFilters } from "@/types/domain";
 import { debtListQuery } from "./query";
 import { DebtDetails } from "./DebtDetails";
+import { SettlementDemo } from "./SettlementDemo";
 
 const routeApi = getRouteApi("/admin/qarzlar");
 
 export function DebtsPage() {
   const filters = routeApi.useSearch();
+  const [settlementOpen, setSettlementOpen] = useState(false);
   const navigate = routeApi.useNavigate();
   const { data: rows } = useSuspenseQuery(debtListQuery(filters));
   const update = (patch: Partial<DebtFilters>) => { void navigate({ search: (prev) => ({ ...prev, ...patch }), replace: true, resetScroll: false }); };
   const filtered = Boolean(filters.q || filters.category !== "all" || filters.status !== "all");
   const reset = () => update({ q: "", category: "all", status: "all" });
   return <div className="space-y-6">
-    <header><p className="mb-2 text-xs font-semibold text-info">{uz.preview.mockBadge}</p><h1 className="text-2xl font-extrabold sm:text-3xl">{uz.debts.title}</h1></header>
+    <header className="flex flex-wrap items-end justify-between gap-4"><div><p className="mb-2 text-xs font-semibold text-info">{uz.preview.mockBadge}</p><h1 className="text-2xl font-extrabold sm:text-3xl">{uz.debts.title}</h1></div><Button onClick={() => setSettlementOpen(true)}><HandCoins aria-hidden />{uz.settlementDemo.open}</Button></header>
     <section aria-label={uz.debts.categories} className="space-y-5 border-y py-5">
       <Tabs value={filters.category} onValueChange={(category) => update({ category: parseDebtFilters({ category }).category })}>
         <TabsList className="h-auto w-full flex-wrap justify-start gap-1 bg-transparent p-0">{["all", ...debtCategories].map((category) => <TabsTrigger key={category} value={category} className="min-h-9 flex-none border border-transparent px-3 data-[state=active]:border-primary data-[state=active]:bg-accent data-[state=active]:text-primary">{category === "all" ? uz.debts.allCategories : uz.debtCategory[category as typeof debtCategories[number]]}</TabsTrigger>)}</TabsList>
@@ -46,5 +48,6 @@ export function DebtsPage() {
       <ul className="divide-y lg:hidden">{rows.map((d) => <li key={d.id} className="space-y-3 py-5"><div className="flex flex-wrap items-center justify-between gap-2"><p className="font-semibold">{d.debtorName}</p><StatusBadge kind="debt" status={d.status} /></div><p className="text-xs text-muted-foreground">{uz.debtCategory[d.category]} · {formatDate(d.effectiveDate)}</p><p className="text-sm text-muted-foreground">{d.reason}</p><div className="flex flex-wrap items-end justify-between gap-3"><div><p className="mb-1 text-xs text-danger">{uz.fields.outstanding}</p><Money value={d.outstandingAmount} tone={d.outstandingAmount ? "debt" : "muted"} className="text-sm font-semibold" /></div><Button variant="outline" size="sm" onClick={() => update({ debt: d.id })}>{uz.actions.details}</Button></div></li>)}</ul>
     </> : <div className="flex flex-col items-center gap-3 py-16 text-center"><HandCoins className="size-8 text-muted-foreground" aria-hidden /><h2 className="font-semibold">{uz.debts.empty}</h2><p className="text-sm text-muted-foreground">{uz.debts.emptyNote}</p>{filtered && <Button variant="outline" onClick={reset}><RotateCcw aria-hidden />{uz.ledger.reset}</Button>}</div>}
     <Sheet open={Boolean(filters.debt)} onOpenChange={(open) => { if (!open) update({ debt: "" }); }}><SheetContent className="w-full overflow-y-auto sm:max-w-lg"><SheetTitle className="pr-6">{uz.debts.details}</SheetTitle><SheetDescription className="mt-2">{uz.preview.mockBadge}</SheetDescription>{filters.debt && <Suspense fallback={<div role="status" aria-label={uz.dashboard.loading} className="mt-6 space-y-4"><Skeleton className="h-32 w-full" /><Skeleton className="h-64 w-full" /></div>}><DebtDetails id={filters.debt} onSelect={(debt) => update({ debt })} /></Suspense>}</SheetContent></Sheet>
+    {settlementOpen && <SettlementDemo onClose={() => setSettlementOpen(false)} />}
   </div>;
 }
