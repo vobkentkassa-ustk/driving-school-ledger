@@ -20,6 +20,7 @@ import type {
 } from "@/types/domain";
 import * as db from "./data";
 import { uz } from "@/i18n/uz";
+export { listSettlementDemoScenarios, previewSettlementDemo, confirmSettlementDemo } from "./settlement-demo";
 
 const delay = <T,>(value: T, ms = 120): Promise<T> =>
   new Promise((resolve) => setTimeout(() => resolve(structuredClone(value)), ms));

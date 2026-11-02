@@ -77,6 +77,23 @@ export type DebtCategory = "student_related" | "mentor_advance" | "organization_
  */
 export type SettlementMethod = "personal_repayment" | "salary_deduction" | "organization_budget";
 
+/** Isolated demonstration scenarios, not commands for the live debt ledger. */
+export interface SettlementDemoScenario {
+  method: SettlementMethod;
+  debt: DebtViewModel;
+  fullAmount: number;
+  partialAmount: number;
+  effectiveDate: ISODate;
+}
+
+export interface SettlementDemoResult {
+  debt: DebtViewModel;
+  settlement: DebtSettlement;
+  studentCredit: StudentAccountEntry | null;
+  preservedDebt: DebtViewModel | null;
+  cashTransaction: CashTransaction | null;
+}
+
 export interface DebtViewModel {
   id: string;
   debtorType: DebtorType;
