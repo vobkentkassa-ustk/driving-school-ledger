@@ -49,7 +49,7 @@ function snapshot(method: SettlementMethod, partial: boolean): SettlementDemoRes
   return {
     debt: { ...scenario.debt, settledAmount: values.settled, outstandingAmount: values.remaining, status: partial ? "partially_settled" : "settled" },
     settlement: { ...base, id: "demo-settlement", debtId: scenario.debt.id, amount: values.amount, method,
-      effects: { studentAccountEntryId: studentCredit?.id, preservedOrganizationDebtId: preservedDebt?.id, cashTransactionId: cashTransaction?.id } },
+      effects: { ...(studentCredit ? { studentAccountEntryId: studentCredit.id } : {}), ...(preservedDebt ? { preservedOrganizationDebtId: preservedDebt.id } : {}), ...(cashTransaction ? { cashTransactionId: cashTransaction.id } : {}) } },
     studentCredit, preservedDebt, cashTransaction,
   };
 }
