@@ -10,6 +10,7 @@ import type {
   PaymentRequest,
   Student,
   StudentAccountEntry,
+  StudentAccountSummary,
   User,
 } from "@/types/domain";
 
@@ -102,7 +103,17 @@ export const studentAccountEntries: StudentAccountEntry[] = [
   { id: "ae1", studentId: "s1", type: "payment", amount: 1_500_000, description: uz.samples.descriptions.cashPayment, effectiveDate: "2026-09-03", createdAt: "2026-09-03T08:00:00Z", createdBy: "u1" },
   { id: "ae2", studentId: "s2", type: "debt_settlement_credit", amount: 400_000, description: uz.samples.descriptions.partialSettlement, effectiveDate: "2026-10-01", createdAt: "2026-10-01T08:00:00Z", relatedDebtId: "d1", relatedSettlementId: "st2", createdBy: "u1" },
   { id: "ae3", studentId: "s5", type: "debt_settlement_credit", amount: 700_000, description: uz.samples.descriptions.settlement, effectiveDate: "2026-10-15", createdAt: "2026-10-15T10:00:00Z", relatedDebtId: "d4", relatedSettlementId: "st1", createdBy: "u1" },
+  { id: "ae4", studentId: "s3", type: "payment", amount: 1_000_000, description: uz.samples.descriptions.madinaBackdatedPayment, effectiveDate: "2026-10-12", createdAt: "2026-10-21T06:00:00Z", createdBy: "u1" },
 ];
+
+/** Literal balances; pending/draft/rejected requests do not count as paid. */
+export const studentSummaries: Record<string, StudentAccountSummary> = {
+  s1: { paidAmount: 1_500_000, remainingAmount: 3_000_000, paidBelow30Percent: false },
+  s2: { paidAmount: 400_000, remainingAmount: 4_100_000, paidBelow30Percent: true },
+  s3: { paidAmount: 1_000_000, remainingAmount: 3_800_000, paidBelow30Percent: true },
+  s4: { paidAmount: 0, remainingAmount: 6_200_000, paidBelow30Percent: true },
+  s5: { paidAmount: 700_000, remainingAmount: 3_500_000, paidBelow30Percent: true },
+};
 
 export const cashTransactions: CashTransaction[] = [
   { id: "c1", type: "student_payment", description: uz.samples.descriptions.azizaPayment, cashIn: 1_500_000, cashOut: 0, effectiveDate: "2026-09-03", createdAt: "2026-09-03T08:05:00Z", relatedStudentId: "s1", mentorId: "m1", createdBy: "u1" },

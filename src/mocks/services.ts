@@ -16,10 +16,13 @@ import type {
   PaymentRequest,
   Student,
   StudentAccountEntry,
+  StudentDirectory,
+  StudentProfile,
   ViewerScope,
 } from "@/types/domain";
 import * as db from "./data";
 import { uz } from "@/i18n/uz";
+import { showUnder30Warning } from "@/lib/students";
 export { listSettlementDemoScenarios, previewSettlementDemo, confirmSettlementDemo } from "./settlement-demo";
 
 const delay = <T,>(value: T, ms = 120): Promise<T> =>
@@ -60,6 +63,28 @@ export function listGroups(scope: ViewerScope): Promise<Group[]> {
 
 export function listStudents(scope: ViewerScope): Promise<Student[]> {
   return delay(scope.role === "admin" ? db.students : db.students.filter((s) => s.mentorId === scope.mentorId));
+}
+
+export async function getStudentDirectory(scope: ViewerScope): Promise<StudentDirectory> {
+  const asOfDate = "2026-11-03";
+  const students = await listStudents(scope);
+  const profiles: StudentProfile[] = students.flatMap((student) => {
+    const group = db.groups.find((g) => g.id === student.groupId);
+    const summary = db.studentSummaries[student.id];
+    if (!group || !summary) return [];
+    return [{ student, group, summary,
+      mentorName: db.mentors.find((m) => m.id === student.mentorId)?.fullName ?? "",
+      under30Warning: showUnder30Warning(group.startDate, asOfDate, summary.paidBelow30Percent),
+      entries: db.studentAccountEntries.filter((e) => e.studentId === student.id)
+        .sort((a, b) => b.effectiveDate.localeCompare(a.effectiveDate) || b.createdAt.localeCompare(a.createdAt))
+        .map((entry) => {
+          const settlement = db.settlements.find((s) => s.id === entry.relatedSettlementId);
+          return { entry, createdByName: db.users.find((u) => u.id === entry.createdBy)?.fullName ?? entry.createdBy,
+            settlementMethod: settlement?.method ?? null, preservedDebtId: settlement?.effects.preservedOrganizationDebtId ?? null };
+        }),
+    }];
+  });
+  return delay({ asOfDate, profiles, groups: scope.role === "admin" ? db.groups : db.groups.filter((g) => g.mentorId === scope.mentorId) });
 }
 
 export function listPaymentRequests(scope: ViewerScope): Promise<PaymentRequest[]> {
