@@ -22,3 +22,4 @@
 - Cash ledger filters live in validated URL search parameters and its async adapter returns enriched cash-only rows; the entry form previews an unsaved example without posting or mutating the ledger.
 - Debt category/status/search and the selected detail ID live in validated URL search; scoped async detail DTOs supply settlement history and linked effects without calculating or writing money.
 - Settlement demonstrations use isolated literal full/partial snapshots from an async adapter, never live debt/cache mutations or arithmetic; fixed amounts and methods expose financial effects without resolving unapproved accounting rules.
+- Student directory DTOs provide literal balances and below-threshold flags; warning eligibility only checks group start against the snapshot date. Payment forms preview unsaved input without altering accounts or cash.
