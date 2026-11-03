@@ -15,8 +15,8 @@ Approved 24.10.2026. Each phase ends with: files changed, tests, build, desktop 
 - [x] 3. Admin dashboard
 - [x] 4. Kassa daftari (ledger)
 - [x] 5. Debts list and detail
-- [x] 6. Settlement dialog (mock; awaiting review)
-- [ ] 7. Students and account history
+- [x] 6. Settlement dialog (mock)
+- [ ] 7. Students and account history (in progress)
 - [ ] 8. Groups and transfer
 - [ ] 9. Mentor workspace
 - [ ] 10. Pending requests and users

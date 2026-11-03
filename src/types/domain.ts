@@ -175,6 +175,30 @@ export interface StudentAccountEntry {
 
 export type ViewerScope = { role: "admin" } | { role: "mentor"; mentorId: string };
 
+export interface StudentAccountSummary {
+  paidAmount: number;
+  remainingAmount: number;
+  /** Supplied by adapter; UI never computes a percentage of money. */
+  paidBelow30Percent: boolean;
+}
+
+export interface StudentProfile {
+  student: Student;
+  group: Group;
+  mentorName: string;
+  summary: StudentAccountSummary;
+  under30Warning: boolean;
+  entries: Array<{ entry: StudentAccountEntry; createdByName: string; settlementMethod: SettlementMethod | null; preservedDebtId: string | null }>;
+}
+
+export interface StudentDirectory {
+  asOfDate: ISODate;
+  profiles: StudentProfile[];
+  groups: Group[];
+}
+
+export interface StudentFilters { q: string; group: string; student: string }
+
 export interface DateRange {
   from?: ISODate;
   to?: ISODate;
