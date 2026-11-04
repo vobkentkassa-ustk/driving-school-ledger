@@ -138,3 +138,9 @@ export const dashboardSnapshot: Pick<AdminDashboard, "period" | "summary"> = {
     pendingCount: 1,
   },
 };
+
+/** Literal transfer preview fixtures (demonstration only; Money Rules for transfers are not approved). */
+export const transferDemos = [
+  { studentId: "s2", fromGroupId: "g1", toGroupId: "g3", oldContract: 4_500_000, newContract: 6_200_000, paidCarried: 400_000, newRemaining: 5_800_000 },
+  { studentId: "s3", fromGroupId: "g2", toGroupId: "g4", oldContract: 4_800_000, newContract: 4_200_000, paidCarried: 1_000_000, newRemaining: 3_200_000 },
+];

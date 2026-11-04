@@ -13,6 +13,7 @@ import type {
   DebtSettlement,
   DebtViewModel,
   Group,
+  GroupOverview,
   PaymentRequest,
   Student,
   StudentAccountEntry,
@@ -171,4 +172,24 @@ export async function getStudentAccount(
   if (!student) return null;
   if (scope.role === "mentor" && student.mentorId !== scope.mentorId) return null;
   return delay({ student, entries: db.studentAccountEntries.filter((e) => e.studentId === studentId) });
+}
+
+/** Groups with mentor names and members. Transfer demos are literal fixtures, never computed. */
+export async function getGroupOverview(scope: ViewerScope): Promise<GroupOverview> {
+  const groups = await listGroups(scope);
+  return delay({
+    items: groups.map((group) => {
+      const members = db.students.filter((s) => s.groupId === group.id);
+      return { group, mentorName: db.mentors.find((m) => m.id === group.mentorId)?.fullName ?? "",
+        studentCount: members.length, students: members.map((s) => ({ id: s.id, fullName: s.fullName })) };
+    }),
+    mentors: db.mentors.filter((m) => scope.role === "admin" || m.id === scope.mentorId).map((m) => ({ id: m.id, fullName: m.fullName })),
+    transferDemos: db.transferDemos.filter((t) => groups.some((g) => g.id === t.fromGroupId) && groups.some((g) => g.id === t.toGroupId)).flatMap((t) => {
+      const fromGroup = db.groups.find((g) => g.id === t.fromGroupId); const toGroup = db.groups.find((g) => g.id === t.toGroupId);
+      const student = db.students.find((s) => s.id === t.studentId);
+      if (!fromGroup || !toGroup || !student) return [];
+      return [{ studentId: student.id, studentName: student.fullName, fromGroup, toGroup,
+        oldContract: t.oldContract, newContract: t.newContract, paidCarried: t.paidCarried, newRemaining: t.newRemaining }];
+    }),
+  });
 }

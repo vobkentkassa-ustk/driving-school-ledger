@@ -258,3 +258,28 @@ export interface AdminDashboard {
   >;
   groups: Array<{ group: Group; mentorName: string; studentCount: number }>;
 }
+
+export interface GroupOverviewItem {
+  group: Group;
+  mentorName: string;
+  studentCount: number;
+  students: Array<{ id: string; fullName: string }>;
+}
+
+/** Literal transfer preview from the adapter. The UI never computes contract or balance changes. */
+export interface TransferDemo {
+  studentId: string;
+  studentName: string;
+  fromGroup: Group;
+  toGroup: Group;
+  oldContract: number;
+  newContract: number;
+  paidCarried: number;
+  newRemaining: number;
+}
+
+export interface GroupOverview {
+  items: GroupOverviewItem[];
+  mentors: Array<{ id: string; fullName: string }>;
+  transferDemos: TransferDemo[];
+}
