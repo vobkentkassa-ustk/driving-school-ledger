@@ -4,7 +4,7 @@ export const groupStatuses = ["upcoming", "active", "finished"] as const satisfi
 export interface GroupFilters { status: "all" | GroupStatus }
 
 export function parseGroupFilters(search: Record<string, unknown>): GroupFilters {
-  const s = search.status;
+  const s = search["status"];
   return { status: typeof s === "string" && (groupStatuses as readonly string[]).includes(s) ? (s as GroupStatus) : "all" };
 }
 
