@@ -46,6 +46,8 @@ export const paymentRequests: PaymentRequest[] = [
   { id: "p2", studentId: "s2", mentorId: "m1", grossAmount: 800_000, method: "card", status: "pending", effectiveDate: "2026-10-20", createdAt: "2026-10-20T09:30:00Z" },
   { id: "p3", studentId: "s3", mentorId: "m2", grossAmount: 2_000_000, method: "transfer", status: "draft", effectiveDate: "2026-10-21", createdAt: "2026-10-21T07:15:00Z" },
   { id: "p4", studentId: "s5", mentorId: "m2", grossAmount: 600_000, method: "cash", status: "rejected", effectiveDate: "2026-10-18", createdAt: "2026-10-18T11:00:00Z", reviewComment: uz.samples.descriptions.receiptMismatch },
+  { id: "p5", studentId: "s4", mentorId: "m1", grossAmount: 500_000, method: "cash", status: "draft", effectiveDate: "2026-11-02", createdAt: "2026-11-02T10:00:00Z" },
+  { id: "p6", studentId: "s1", mentorId: "m1", grossAmount: 300_000, method: "card", status: "rejected", effectiveDate: "2026-10-25", createdAt: "2026-10-25T12:00:00Z", reviewComment: uz.samples.descriptions.receiptMismatch },
 ];
 
 export const debts: DebtViewModel[] = [

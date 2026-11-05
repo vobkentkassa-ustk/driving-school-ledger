@@ -14,6 +14,7 @@ import type {
   DebtViewModel,
   Group,
   GroupOverview,
+  MentorRequestRow,
   PaymentRequest,
   Student,
   StudentAccountEntry,
@@ -90,6 +91,13 @@ export async function getStudentDirectory(scope: ViewerScope): Promise<StudentDi
 
 export function listPaymentRequests(scope: ViewerScope): Promise<PaymentRequest[]> {
   return delay(scope.role === "admin" ? db.paymentRequests : db.paymentRequests.filter((p) => p.mentorId === scope.mentorId));
+}
+
+/** Mentor's own requests with student names, newest first. Demonstration scoping only. */
+export async function listMentorRequests(mentorId: string): Promise<MentorRequestRow[]> {
+  const rows = await listPaymentRequests({ role: "mentor", mentorId });
+  return rows.map((request) => ({ request, studentName: db.students.find((s) => s.id === request.studentId)?.fullName ?? "" }))
+    .sort((a, b) => b.request.createdAt.localeCompare(a.request.createdAt));
 }
 
 /** Mentors see only debts where they are the debtor. Never organization/transit or other mentors' debts. */
