@@ -6,7 +6,7 @@ import { uz } from "@/i18n/uz";
 import { pageHead } from "@/lib/head";
 
 export const Route = createFileRoute("/mentor/oquvchilar")({
-  loader: ({ context }) => Promise.all([mentorStudentsQuery].map((q) => context.queryClient.ensureQueryData(q as never))),
+  loader: ({ context }) => context.queryClient.ensureQueryData(mentorStudentsQuery),
   head: () => pageHead(uz.nav.myStudents, uz.mentor.studentsDescription),
   component: MentorStudentsPage,
   pendingComponent: () => <div role="status" aria-label={uz.dashboard.loading} className="space-y-4"><Skeleton className="h-8 w-40" /><Skeleton className="h-40 w-full" /></div>,
