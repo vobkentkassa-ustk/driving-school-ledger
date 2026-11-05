@@ -40,7 +40,7 @@ export function MentorStudentsPage() {
       <div className="flex items-start justify-between gap-2"><div><p className="font-semibold">{student.fullName}</p><p className="text-xs text-muted-foreground">{group.name} · {group.startDate ? formatDate(group.startDate) : uz.fields.startUnknown}</p></div></div>
       <dl className="grid grid-cols-3 gap-2 text-xs">
         <div><dt className="text-muted-foreground">{uz.fields.contractPrice}</dt><dd><Money value={group.contractPrice} /></dd></div>
-        <div><dt className="text-muted-foreground">{uz.mentor.paid}</dt><dd><Money value={summary.paidAmount} tone="income" /></dd></div>
+        <div><dt className="text-muted-foreground">{uz.mentor.paid}</dt><dd><Money value={summary.paidAmount} tone="positive" /></dd></div>
         <div><dt className="text-muted-foreground">{uz.mentor.remaining}</dt><dd><Money value={summary.remainingAmount} tone="debt" /></dd></div>
       </dl>
       {under30Warning && <p className="rounded-md bg-warning-soft px-2 py-1 text-xs font-semibold text-warning">{uz.warnings.under30}</p>}
