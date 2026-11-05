@@ -24,3 +24,4 @@
 - Settlement demonstrations use isolated literal full/partial snapshots from an async adapter, never live debt/cache mutations or arithmetic; fixed amounts and methods expose financial effects without resolving unapproved accounting rules.
 - Student directory DTOs provide literal balances and below-threshold flags; warning eligibility only checks group start against the snapshot date. Payment forms preview unsaved input without altering accounts or cash.
 - Group transfer previews come as literal adapter DTOs and group create/edit forms only preview unsaved input — transfer money rules are not approved.
+- Mentor screens read demo-mentor-scoped async queries (src/components/mentor/query.ts); the draft form previews unsaved input and never sends a request.
