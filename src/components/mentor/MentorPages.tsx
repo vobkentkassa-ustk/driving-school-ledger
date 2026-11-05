@@ -55,8 +55,8 @@ export function MentorDebtsPage() {
     {data.length ? <ul className="space-y-3">{data.map((d) => <li key={d.id} className="space-y-2 rounded-lg border bg-card p-4">
       <div className="flex items-start justify-between gap-2"><div><p className="font-semibold">{uz.debtCategory[d.category]}</p><p className="text-xs text-muted-foreground">{d.reason}</p></div><StatusBadge kind="debt" status={d.status} /></div>
       <dl className="grid grid-cols-3 gap-2 text-xs">
-        <div><dt className="text-muted-foreground">{uz.debts.original ?? uz.fields.amount}</dt><dd><Money value={d.originalAmount} tone="muted" /></dd></div>
-        <div><dt className="text-muted-foreground">{uz.debts.settled ?? uz.mentor.paid}</dt><dd><Money value={d.settledAmount} /></dd></div>
+        <div><dt className="text-muted-foreground">{uz.debts.original}</dt><dd><Money value={d.originalAmount} tone="muted" /></dd></div>
+        <div><dt className="text-muted-foreground">{uz.debts.settled}</dt><dd><Money value={d.settledAmount} /></dd></div>
         <div><dt className="text-muted-foreground">{uz.fields.outstanding}</dt><dd><Money value={d.outstandingAmount} tone="debt" className="font-semibold" /></dd></div>
       </dl>
       <p className="text-xs text-muted-foreground">{uz.fields.effectiveDate}: {formatDate(d.effectiveDate)}{d.relatedStudentName ? ` · ${d.relatedStudentName}` : ""}</p>
