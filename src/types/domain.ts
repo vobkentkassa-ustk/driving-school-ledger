@@ -283,3 +283,5 @@ export interface GroupOverview {
   mentors: Array<{ id: string; fullName: string }>;
   transferDemos: TransferDemo[];
 }
+
+export interface MentorRequestRow { request: PaymentRequest; studentName: string }
