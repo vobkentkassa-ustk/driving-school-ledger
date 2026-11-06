@@ -285,3 +285,10 @@ export interface GroupOverview {
 }
 
 export interface MentorRequestRow { request: PaymentRequest; studentName: string }
+
+export interface AdminRequestRow extends MentorRequestRow { mentorName: string; groupName: string }
+export interface RequestFilters { q: string; status: "all" | PaymentStatus }
+export interface UserFilters { q: string; status: "all" | UserStatus; role: "all" | UserRole }
+export type RequestReviewDecision = "approved" | "rejected";
+export interface RequestReviewPreview { row: AdminRequestRow; decision: RequestReviewDecision; comment: string }
+export interface UserStatusPreview { user: User; proposedStatus: UserStatus }

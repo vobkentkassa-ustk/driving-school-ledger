@@ -18,7 +18,7 @@ Approved 24.10.2026. Each phase ends with: files changed, tests, build, desktop 
 - [x] 6. Settlement dialog (mock)
 - [x] 7. Students and account history
 - [x] 8. Groups and transfer
-- [x] 9. Mentor workspace (awaiting review)
+- [x] 9. Mentor workspace
 - [ ] 10. Pending requests and users
 - [ ] 11. Operation history
 - [ ] 12. Polish and QA
@@ -27,6 +27,7 @@ Approved 24.10.2026. Each phase ends with: files changed, tests, build, desktop 
 Separate production track (each needs its own approval): Money Rules, backend choice, database, Telegram login, bot, exports, launch. The 12 Money Rules questions stay open.
 
 ## Status log
+- 06.11.2026: Phase 9 accepted by next-phase authorization. Phase 10 in progress: pending request review and user management demonstrations only; no financial or access-control writes.
 - 05.11.2026: Phase 9 completed; stopped for review. Mentor phone screens: own requests (draft/pending/approved/rejected with admin comment), unsaved draft preview form, own students with literal balances and under-30 warning, own debts (no transit). Added sample requests p5 (draft) and p6 (rejected) for m1. 60 tests passed. Phase 10 requires approval.
 - 04.11.2026: Phase 8 completed; stopped for review. Groups card grid with URL status filter, unknown start shown as Nomaʼlum, member links to student profiles, unsaved create/edit form preview, transfer preview with literal adapter-supplied amounts (no posting, no arithmetic). Files: src/components/groups/*, src/lib/groups.ts, src/mocks/{data.ts,services.ts,groups.test.ts}, src/types/domain.ts, src/i18n/uz.ts, src/routes/admin.guruhlar.tsx. 57 tests passed. Transfer Money Rules remain unapproved. Phase 9 requires approval.
 - 03.11.2026: Phase 7 completed; stopped for review. Student directory with search/group filters and reset/empty state, URL-linked profiles, literal contract/account balances, account history showing effective and creation dates, debt and preserved-debt links, and unsaved backdated payment preview. Under-30 eligibility uses an adapter-supplied threshold flag and known non-future group start; no money arithmetic. Added the account counterpart of existing Madina cash payment c2 (ae4), with unchanged cash ledger and dashboard. Student credits remain internal and are included in literal account snapshots; pending/draft/rejected requests are excluded. Files: src/components/students/{query.ts,StudentsPage.tsx,StudentProfile.tsx,StudentPaymentPreview.tsx}, src/lib/students.ts, src/mocks/{data.ts,services.ts,students.test.ts}, src/types/domain.ts, src/i18n/uz.ts, src/routes/admin.oquvchilar.tsx, AGENTS.md and roadmap.md. All 53 tests passed; automatic build OK at 05:17:15 UTC. Browser verified home → admin → students, search/group/reset/empty, salary credit → preserved debt, backdated history, invalid/valid unsaved payment and unchanged account after reload, missing student, light/dark and 1440/1158/1024/768/375 widths; no overflow or runtime errors. Architecture/dependencies unchanged; no backend, database, real authentication or financial writes. Limitations: mock-only snapshot dated 03.11.2026, preview never saves, mentor workspace deferred, production Money Rules and GitHub remain unverified. Phase 8 requires approval.

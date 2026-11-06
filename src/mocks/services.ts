@@ -4,6 +4,13 @@
  */
 import type {
   AdminDashboard,
+  AdminRequestRow,
+  RequestFilters,
+  RequestReviewDecision,
+  RequestReviewPreview,
+  UserFilters,
+  User,
+  UserStatusPreview,
   CashTransaction,
   CashLedgerFilters,
   CashLedgerRow,
@@ -25,6 +32,7 @@ import type {
 import * as db from "./data";
 import { uz } from "@/i18n/uz";
 import { showUnder30Warning } from "@/lib/students";
+import { canReviewRequest, canPreviewUserStatus } from "@/lib/admin-review";
 export { listSettlementDemoScenarios, previewSettlementDemo, confirmSettlementDemo } from "./settlement-demo";
 
 const delay = <T,>(value: T, ms = 120): Promise<T> =>
@@ -98,6 +106,37 @@ export async function listMentorRequests(mentorId: string): Promise<MentorReques
   const rows = await listPaymentRequests({ role: "mentor", mentorId });
   return rows.map((request) => ({ request, studentName: db.students.find((s) => s.id === request.studentId)?.fullName ?? "" }))
     .sort((a, b) => b.request.createdAt.localeCompare(a.request.createdAt));
+}
+
+/** Read-only admin demonstration. No access control or accounting posting. */
+export function listAdminRequests(filters: RequestFilters): Promise<AdminRequestRow[]> {
+  const q = filters.q.trim().toLocaleLowerCase("uz");
+  const rows = db.paymentRequests.map((request) => {
+    const student = db.students.find((s) => s.id === request.studentId);
+    return { request, studentName: student?.fullName ?? "", mentorName: db.mentors.find((m) => m.id === request.mentorId)?.fullName ?? "", groupName: db.groups.find((g) => g.id === student?.groupId)?.name ?? "" };
+  });
+  return delay(rows.filter((r) => (filters.status === "all" || r.request.status === filters.status)
+    && (!q || [r.request.id, r.studentName, r.mentorName, r.groupName].join(" ").toLocaleLowerCase("uz").includes(q)))
+    .sort((a, b) => b.request.createdAt.localeCompare(a.request.createdAt)));
+}
+
+export async function previewRequestReview(id: string, decision: RequestReviewDecision, comment: string): Promise<RequestReviewPreview | null> {
+  const row = (await listAdminRequests({ q: "", status: "all" })).find((r) => r.request.id === id);
+  if (!row || !canReviewRequest(row.request.status, decision, comment)) return null;
+  return delay({ row, decision, comment: comment.trim() });
+}
+
+export function listAdminUsers(filters: UserFilters): Promise<User[]> {
+  const q = filters.q.trim().toLocaleLowerCase("uz");
+  return delay(db.users.filter((u) => (filters.status === "all" || u.status === filters.status)
+    && (filters.role === "all" || u.role === filters.role)
+    && (!q || [u.fullName, u.telegramUsername].join(" ").toLocaleLowerCase("uz").includes(q)))
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt)));
+}
+
+export function previewUserStatus(id: string, proposedStatus: User["status"]): Promise<UserStatusPreview | null> {
+  const user = db.users.find((u) => u.id === id);
+  return delay(user && canPreviewUserStatus(user.status, proposedStatus) ? { user, proposedStatus } : null);
 }
 
 /** Mentors see only debts where they are the debtor. Never organization/transit or other mentors' debts. */

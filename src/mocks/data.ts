@@ -19,6 +19,7 @@ export const users: User[] = [
   { id: "u2", fullName: uz.samples.names.dilshod, role: "mentor", status: "active", telegramUsername: "dilshod_r", createdAt: "2026-01-12T06:00:00Z" },
   { id: "u3", fullName: uz.samples.names.sardor, role: "mentor", status: "active", createdAt: "2026-02-01T06:00:00Z" },
   { id: "u4", fullName: uz.samples.names.bekzod, role: "mentor", status: "pending_approval", createdAt: "2026-10-20T10:00:00Z" },
+  { id: "u5", fullName: uz.samples.names.umid, role: "mentor", status: "blocked", telegramUsername: "umid_r", createdAt: "2026-10-22T08:00:00Z" },
 ];
 
 export const mentors: Mentor[] = [

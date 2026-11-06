@@ -25,3 +25,4 @@
 - Student directory DTOs provide literal balances and below-threshold flags; warning eligibility only checks group start against the snapshot date. Payment forms preview unsaved input without altering accounts or cash.
 - Group transfer previews come as literal adapter DTOs and group create/edit forms only preview unsaved input — transfer money rules are not approved.
 - Mentor screens read demo-mentor-scoped async queries (src/components/mentor/query.ts); the draft form previews unsaved input and never sends a request.
+- Admin request/user filters use validated URL search and loader-primed async DTOs; decisions and status changes return isolated previews without mutating users, requests, caches or financial records, so demonstrations cannot be mistaken for production authorization or posting.
