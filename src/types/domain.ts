@@ -292,3 +292,32 @@ export interface UserFilters { q: string; status: "all" | UserStatus; role: "all
 export type RequestReviewDecision = "approved" | "rejected";
 export interface RequestReviewPreview { row: AdminRequestRow; decision: RequestReviewDecision; comment: string }
 export interface UserStatusPreview { user: User; proposedStatus: UserStatus }
+
+export interface OperationFilters { q: string; from: string; to: string; kind: "all" | "cash" | "internal"; operation: string }
+/** Explicit demo audit fixtures, not a production audit log or inferred user actions. */
+export interface OperationAuditEvent {
+  id: string;
+  operationId: string;
+  action: "cash_recorded" | "settlement_recorded";
+  effectiveDate: ISODate;
+  createdAt: ISODateTime;
+  createdBy: string;
+}
+export interface OperationHistoryRow {
+  id: string;
+  kind: "cash" | "internal";
+  description: string;
+  effectiveDate: ISODate;
+  createdAt: ISODateTime;
+  createdByName: string;
+  studentName: string | null;
+  mentorName: string | null;
+  source: { kind: "cash"; transaction: CashTransaction } | { kind: "internal"; settlement: DebtSettlement };
+}
+export interface OperationHistoryDetail {
+  row: OperationHistoryRow;
+  debt: DebtViewModel | null;
+  studentCredit: StudentAccountEntry | null;
+  preservedDebt: DebtViewModel | null;
+  events: Array<{ event: OperationAuditEvent; createdByName: string }>;
+}

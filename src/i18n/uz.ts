@@ -16,6 +16,25 @@ import type {
 export const uz = {
   app: { name: "Avtomaktab Kassa", tagline: "Avtomaktab kassasi va qarzlar hisobi" },
   currency: { suffix: "soʻm" },
+  history: {
+    title: "Operatsiyalar tarixi",
+    description: "Avtomaktab Kassa: kassa va ichki hisob-kitoblar tarixi, bog'liq yozuvlar va sinov audit jurnali.",
+    search: "Izoh, ism yoki yozuv raqami",
+    all: "Barcha operatsiyalar",
+    kind: "Harakat turi",
+    details: "Operatsiya tafsilotlari",
+    audit: "Audit jurnali — sinov",
+    note: "Sinov yozuvlari. Haqiqiy audit va o'zgarishlarni qayd etish hali ulanmagan.",
+    empty: "Operatsiyalar topilmadi",
+    notFound: "Bu operatsiya topilmadi.",
+    eventId: "Audit yozuvi raqami",
+    operationId: "Operatsiya raqami",
+    creditId: "Hisob yozuvi raqami",
+    linked: "Bog'liq yozuvlar",
+    open: "Tarix yozuvini ochish",
+    noEvents: "Audit yozuvi mavjud emas.",
+    actions: { cash_recorded: "Kassa yozuvi kiritilgan", settlement_recorded: "Qarz yopish yozuvi kiritilgan" },
+  },
   requests: {
     title: "Kutilayotgan so'rovlar",
     description: "To'lov so'rovlari va administrator qarori namunasi — Avtomaktab Kassa.",
@@ -271,6 +290,7 @@ export const uz = {
   nav: {
     dashboard: "Boshqaruv paneli",
     ledger: "Daftar",
+    history: "Operatsiyalar tarixi",
     requests: "Kutilayotgan so'rovlar",
     groups: "Guruhlar",
     students: "O'quvchilar",

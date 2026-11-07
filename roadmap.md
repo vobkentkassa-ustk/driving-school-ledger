@@ -19,8 +19,8 @@ Approved 24.10.2026. Each phase ends with: files changed, tests, build, desktop 
 - [x] 7. Students and account history
 - [x] 8. Groups and transfer
 - [x] 9. Mentor workspace
-- [x] 10. Pending requests and users (awaiting review)
-- [ ] 11. Operation history
+- [x] 10. Pending requests and users (accepted)
+- [ ] 11. Operation history (authorized 07.11.2026; in progress)
 - [ ] 12. Polish and QA
 - [ ] 13. Release candidate and backend contract
 

@@ -22,6 +22,9 @@ import type {
   Group,
   GroupOverview,
   MentorRequestRow,
+  OperationFilters,
+  OperationHistoryRow,
+  OperationHistoryDetail,
   PaymentRequest,
   Student,
   StudentAccountEntry,
@@ -137,6 +140,44 @@ export function listAdminUsers(filters: UserFilters): Promise<User[]> {
 export function previewUserStatus(id: string, proposedStatus: User["status"]): Promise<UserStatusPreview | null> {
   const user = db.users.find((u) => u.id === id);
   return delay(user && canPreviewUserStatus(user.status, proposedStatus) ? { user, proposedStatus } : null);
+}
+
+/** Read-only admin demonstration. Cash and settlements remain separate, with no monetary totals. */
+export function listOperationHistory(filters: OperationFilters): Promise<OperationHistoryRow[]> {
+  const name = (id: string) => db.users.find((u) => u.id === id)?.fullName ?? id;
+  const rows: OperationHistoryRow[] = [
+    ...db.cashTransactions.map((t): OperationHistoryRow => ({
+      id: `cash:${t.id}`, kind: "cash", description: t.description, effectiveDate: t.effectiveDate, createdAt: t.createdAt,
+      createdByName: name(t.createdBy), studentName: db.students.find((s) => s.id === t.relatedStudentId)?.fullName ?? null,
+      mentorName: db.mentors.find((m) => m.id === t.mentorId)?.fullName ?? null, source: { kind: "cash", transaction: t },
+    })),
+    ...db.settlements.map((s): OperationHistoryRow => {
+      const debt = db.debts.find((d) => d.id === s.debtId);
+      return { id: `internal:${s.id}`, kind: "internal", description: debt?.reason ?? "", effectiveDate: s.effectiveDate, createdAt: s.createdAt,
+        createdByName: name(s.createdBy), studentName: debt?.relatedStudentName ?? null,
+        mentorName: db.mentors.find((m) => m.id === debt?.relatedMentorId)?.fullName ?? null, source: { kind: "internal", settlement: s } };
+    }),
+  ];
+  const q = filters.q.trim().toLocaleLowerCase("uz");
+  return delay(rows.filter((r) => inRange(r.effectiveDate, filters) && (filters.kind === "all" || r.kind === filters.kind)
+    && (!q || [r.id, r.description, r.studentName, r.mentorName, r.createdByName,
+      r.source.kind === "cash" ? uz.ledgerType[r.source.transaction.type] : uz.settlementMethod[r.source.settlement.method]
+    ].join(" ").toLocaleLowerCase("uz").includes(q)))
+    .sort((a, b) => b.effectiveDate.localeCompare(a.effectiveDate) || b.createdAt.localeCompare(a.createdAt) || a.id.localeCompare(b.id)));
+}
+
+export async function getOperationHistoryDetail(id: string): Promise<OperationHistoryDetail | null> {
+  const row = (await listOperationHistory({ q: "", from: "", to: "", kind: "all", operation: "" })).find((r) => r.id === id);
+  if (!row) return null;
+  const settlement = row.source.kind === "internal" ? row.source.settlement : null;
+  const debtId = row.source.kind === "cash" ? row.source.transaction.relatedDebtId : settlement?.debtId;
+  return delay({ row, debt: db.debts.find((d) => d.id === debtId) ?? null,
+    studentCredit: db.studentAccountEntries.find((e) => e.id === settlement?.effects.studentAccountEntryId) ?? null,
+    preservedDebt: db.debts.find((d) => d.id === settlement?.effects.preservedOrganizationDebtId) ?? null,
+    events: db.operationAuditEvents.filter((e) => e.operationId === row.id)
+      .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+      .map((event) => ({ event, createdByName: db.users.find((u) => u.id === event.createdBy)?.fullName ?? event.createdBy })),
+  });
 }
 
 /** Mentors see only debts where they are the debtor. Never organization/transit or other mentors' debts. */

@@ -3,6 +3,7 @@ import {
   FileClock,
   FilePen,
   GraduationCap,
+  History,
   HandCoins,
   LayoutDashboard,
   Users,
@@ -22,6 +23,7 @@ export interface NavItem {
 export const adminNav = [
   { to: "/admin", label: uz.nav.dashboard, icon: LayoutDashboard, exact: true },
   { to: "/admin/daftar", label: uz.nav.ledger, icon: BookOpen },
+  { to: "/admin/tarix", label: uz.nav.history, icon: History },
   { to: "/admin/sorovlar", label: uz.nav.requests, icon: FileClock },
   { to: "/admin/qarzlar", label: uz.nav.debts, icon: HandCoins },
   { to: "/admin/oquvchilar", label: uz.nav.students, icon: GraduationCap },

@@ -1,4 +1,5 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Money } from "@/components/shared/Money";
 import { StatusBadge } from "@/components/shared/StatusBadge";
@@ -39,6 +40,7 @@ export function DebtDetails({ id, onSelect }: { id: string; onSelect: (id: strin
         <dl className="space-y-2 text-xs">{[[uz.fields.effectiveDate, formatDate(s.effectiveDate)], [uz.fields.createdAt, formatDateTime(s.createdAt)], [uz.ledger.createdBy, createdByName]].map(([label, value]) => <div key={label} className="flex flex-wrap justify-between gap-2"><dt className="text-muted-foreground">{label}</dt><dd>{value}</dd></div>)}</dl>
         {studentCredit && <div className="border-l-2 border-info pl-3"><p className="text-xs text-info">{uz.debts.studentCredit}</p><p className="mt-1 text-sm">{d.relatedStudentName}</p><Money value={studentCredit.amount} className="text-sm text-info" /><p className="mt-1 text-xs text-muted-foreground">{studentCredit.description}</p></div>}
         {s.method === "salary_deduction" && <p className="text-sm text-muted-foreground">{uz.preview.salaryNote}</p>}
+        <Button asChild variant="link" className="h-auto whitespace-normal px-0 text-left"><Link to="/admin/tarix" search={{ operation: `internal:${s.id}` }}>{uz.history.open}</Link></Button>
         {preservedDebt && <div><p className="text-xs text-danger">{uz.debts.preservedDebt}</p><Button variant="link" className="h-auto whitespace-normal px-0 text-left" onClick={() => onSelect(preservedDebt.id)}>{preservedDebt.id} · {preservedDebt.debtorName}</Button><div><Money value={preservedDebt.outstandingAmount} tone="debt" className="text-sm" /></div></div>}
       </li>)}</ol> : <p className="text-sm text-muted-foreground">{uz.debts.noHistory}</p>}
     </section>

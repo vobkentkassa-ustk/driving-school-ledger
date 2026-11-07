@@ -7,6 +7,7 @@ import type {
   DebtViewModel,
   Group,
   Mentor,
+  OperationAuditEvent,
   PaymentRequest,
   Student,
   StudentAccountEntry,
@@ -146,4 +147,14 @@ export const dashboardSnapshot: Pick<AdminDashboard, "period" | "summary"> = {
 export const transferDemos = [
   { studentId: "s2", fromGroupId: "g1", toGroupId: "g3", oldContract: 4_500_000, newContract: 6_200_000, paidCarried: 400_000, newRemaining: 5_800_000 },
   { studentId: "s3", fromGroupId: "g2", toGroupId: "g4", oldContract: 4_800_000, newContract: 4_200_000, paidCarried: 1_000_000, newRemaining: 3_200_000 },
+];
+
+/** Literal audit examples for existing records only. UI previews never append events. */
+export const operationAuditEvents: OperationAuditEvent[] = [
+  { id: "a-c1", operationId: "cash:c1", action: "cash_recorded", effectiveDate: "2026-09-03", createdAt: "2026-09-03T08:05:00Z", createdBy: "u1" },
+  { id: "a-c2", operationId: "cash:c2", action: "cash_recorded", effectiveDate: "2026-10-12", createdAt: "2026-10-21T06:00:00Z", createdBy: "u1" },
+  { id: "a-c3", operationId: "cash:c3", action: "cash_recorded", effectiveDate: "2026-10-05", createdAt: "2026-10-05T12:00:00Z", createdBy: "u1" },
+  { id: "a-c4", operationId: "cash:c4", action: "cash_recorded", effectiveDate: "2026-10-21", createdAt: "2026-10-21T13:00:00Z", createdBy: "u1" },
+  { id: "a-st1", operationId: "internal:st1", action: "settlement_recorded", effectiveDate: "2026-10-15", createdAt: "2026-10-15T10:00:00Z", createdBy: "u1" },
+  { id: "a-st2", operationId: "internal:st2", action: "settlement_recorded", effectiveDate: "2026-10-01", createdAt: "2026-10-01T08:00:00Z", createdBy: "u1" },
 ];

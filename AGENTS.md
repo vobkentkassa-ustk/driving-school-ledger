@@ -26,3 +26,4 @@
 - Group transfer previews come as literal adapter DTOs and group create/edit forms only preview unsaved input — transfer money rules are not approved.
 - Mentor screens read demo-mentor-scoped async queries (src/components/mentor/query.ts); the draft form previews unsaved input and never sends a request.
 - Admin request/user filters use validated URL search and loader-primed async DTOs; decisions and status changes return isolated previews without mutating users, requests, caches or financial records, so demonstrations cannot be mistaken for production authorization or posting.
+- Operation history uses URL filters and detail IDs with loader-primed async DTOs; explicit demo audit fixtures link existing cash/settlement effects without inferred actions, monetary aggregation or preview-generated events, so audit examples cannot be mistaken for real logging.

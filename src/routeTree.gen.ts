@@ -24,6 +24,7 @@ import { Route as AdminGuruhlarRouteImport } from './routes/admin.guruhlar'
 import { Route as AdminOquvchilarRouteImport } from './routes/admin.oquvchilar'
 import { Route as AdminQarzlarRouteImport } from './routes/admin.qarzlar'
 import { Route as AdminSorovlarRouteImport } from './routes/admin.sorovlar'
+import { Route as AdminTarixRouteImport } from './routes/admin.tarix'
 import { Route as MentorIndexRouteImport } from './routes/mentor.index'
 import { Route as MentorOquvchilarRouteImport } from './routes/mentor.oquvchilar'
 import { Route as MentorQarzlarRouteImport } from './routes/mentor.qarzlar'
@@ -103,6 +104,11 @@ const AdminSorovlarRoute = AdminSorovlarRouteImport.update({
   path: '/sorovlar',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminTarixRoute = AdminTarixRouteImport.update({
+  id: '/tarix',
+  path: '/tarix',
+  getParentRoute: () => AdminRoute,
+} as any)
 const MentorIndexRoute = MentorIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -134,6 +140,7 @@ export interface FileRoutesByFullPath {
   '/admin/oquvchilar': typeof AdminOquvchilarRoute
   '/admin/qarzlar': typeof AdminQarzlarRoute
   '/admin/sorovlar': typeof AdminSorovlarRoute
+  '/admin/tarix': typeof AdminTarixRoute
   '/mentor/oquvchilar': typeof MentorOquvchilarRoute
   '/mentor/qarzlar': typeof MentorQarzlarRoute
   '/admin/': typeof AdminIndexRoute
@@ -152,6 +159,7 @@ export interface FileRoutesByTo {
   '/admin/oquvchilar': typeof AdminOquvchilarRoute
   '/admin/qarzlar': typeof AdminQarzlarRoute
   '/admin/sorovlar': typeof AdminSorovlarRoute
+  '/admin/tarix': typeof AdminTarixRoute
   '/mentor/oquvchilar': typeof MentorOquvchilarRoute
   '/mentor/qarzlar': typeof MentorQarzlarRoute
   '/admin': typeof AdminIndexRoute
@@ -173,6 +181,7 @@ export interface FileRoutesById {
   '/admin/oquvchilar': typeof AdminOquvchilarRoute
   '/admin/qarzlar': typeof AdminQarzlarRoute
   '/admin/sorovlar': typeof AdminSorovlarRoute
+  '/admin/tarix': typeof AdminTarixRoute
   '/mentor/oquvchilar': typeof MentorOquvchilarRoute
   '/mentor/qarzlar': typeof MentorQarzlarRoute
   '/admin/': typeof AdminIndexRoute
@@ -195,6 +204,7 @@ export interface FileRouteTypes {
     | '/admin/oquvchilar'
     | '/admin/qarzlar'
     | '/admin/sorovlar'
+    | '/admin/tarix'
     | '/mentor/oquvchilar'
     | '/mentor/qarzlar'
     | '/admin/'
@@ -213,6 +223,7 @@ export interface FileRouteTypes {
     | '/admin/oquvchilar'
     | '/admin/qarzlar'
     | '/admin/sorovlar'
+    | '/admin/tarix'
     | '/mentor/oquvchilar'
     | '/mentor/qarzlar'
     | '/admin'
@@ -233,6 +244,7 @@ export interface FileRouteTypes {
     | '/admin/oquvchilar'
     | '/admin/qarzlar'
     | '/admin/sorovlar'
+    | '/admin/tarix'
     | '/mentor/oquvchilar'
     | '/mentor/qarzlar'
     | '/admin/'
@@ -357,6 +369,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminSorovlarRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/tarix': {
+      id: '/admin/tarix'
+      path: '/tarix'
+      fullPath: '/admin/tarix'
+      preLoaderRoute: typeof AdminTarixRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/mentor/': {
       id: '/mentor/'
       path: '/'
@@ -388,6 +407,7 @@ interface AdminRouteChildren {
   AdminOquvchilarRoute: typeof AdminOquvchilarRoute
   AdminQarzlarRoute: typeof AdminQarzlarRoute
   AdminSorovlarRoute: typeof AdminSorovlarRoute
+  AdminTarixRoute: typeof AdminTarixRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
@@ -398,6 +418,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminOquvchilarRoute: AdminOquvchilarRoute,
   AdminQarzlarRoute: AdminQarzlarRoute,
   AdminSorovlarRoute: AdminSorovlarRoute,
+  AdminTarixRoute: AdminTarixRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 
